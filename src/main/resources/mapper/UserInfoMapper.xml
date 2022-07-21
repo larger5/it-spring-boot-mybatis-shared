@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper-->
+<mapper namespace="com.example.itspringbootmybatisshared.mapper.UserInfoMapper">
+
+    <!--获取所有用户信息-->
+    <select id="getAll" resultType="com.example.itspringbootmybatisshared.domain.UserInfo">
+        select *
+        from user_info;
+    </select>
+
+    <!-- 新增用户，注意tableName不能预编译 -->
+    <insert id="addUserInfo">
+        insert into ${tableName} (id, name, money, create_time)
+        values (#{userInfo.id, jdbcType=BIGINT},
+                #{userInfo.name, jdbcType=VARCHAR},
+                #{userInfo.money, jdbcType=DECIMAL},
+                #{userInfo.createTime, jdbcType=DATE})
+    </insert>
+
+    <!-- 查询用户，注意tableName不能预编译 -->
+    <select id="getUserInfoById" resultType="com.example.itspringbootmybatisshared.domain.UserInfo">
+        select *
+        from ${tableName}
+        where id = #{id}
+    </select>
+</mapper>
